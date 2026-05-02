@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(update-config)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(start todo-app.html)",
+      "Bash(iconv -f GBK -t UTF-8 todo-app.html)",
+      "Bash(iconv -f GB2312 -t UTF-8 todo-app.html)",
+      "Bash(cp todo-app.html todo-app-utf8.html)",
+      "Bash(start todo-app-utf8.html)",
+      "Bash(git push *)",
+      "Bash(vercel --name todo-app --public)",
+      "Bash(vercel login *)",
+      "Bash(vercel --prod)",
+      "Bash(start https://ssh-cs-202604.vercel.app)",
+      "Bash(vercel ls *)",
+      "Bash(git commit -m '添加index.html入口文件 *)",
+      "Bash(vercel --prod --force)",
+      "Bash(start tetris.html)",
+      "Bash(git commit -m '添加俄罗斯方块游戏 *)",
+      "Bash(git commit -m '更新首页为应用选择页面 *)"
+    ]
+  }
+}

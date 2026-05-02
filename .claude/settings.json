@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chcp)",
+      "Bash(start todo-app-new.html)"
+    ]
+  }
+}

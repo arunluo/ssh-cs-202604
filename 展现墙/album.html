@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>时光相册</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      background: #f7f8fc;
+      color: #111827;
+    }
+
+    .bg {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      padding: 70px 0;
+    }
+
+    .bg::before,
+    .bg::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .bg::before {
+      width: 340px;
+      height: 340px;
+      right: 40px;
+      top: -60px;
+      background: #e7ecff;
+    }
+
+    .bg::after {
+      width: 420px;
+      height: 420px;
+      left: -100px;
+      bottom: -120px;
+      background: #fff1e7;
+    }
+
+    .green-ball {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: 80px;
+      bottom: 20px;
+      border-radius: 50%;
+      background: #eaf8f1;
+      z-index: 0;
+    }
+
+    .container {
+      width: 960px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #eef0f6;
+      border-radius: 36px;
+      padding: 50px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 10px 30px rgba(31, 41, 55, 0.04);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #6172f3 0%, #8b5cf6 55%, #ec4899 100%);
+      border-radius: 28px;
+      padding: 34px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 44px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 20px;
+      color: #eef2ff;
+    }
+
+    .add-btn {
+      background: rgba(255,255,255,0.95);
+      color: #5568e8;
+      border: none;
+      border-radius: 18px;
+      padding: 16px 26px;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .section-title {
+      margin-top: 48px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .section-title p {
+      margin: 12px 0 0;
+      font-size: 18px;
+      color: #6b7280;
+    }
+
+    .tabs {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .tab {
+      padding: 11px 22px;
+      border-radius: 999px;
+      background: #f2f4ff;
+      color: #4654a3;
+      font-size: 17px;
+    }
+
+    .tab.active {
+      background: #5568e8;
+      color: white;
+      font-weight: 700;
+    }
+
+    .empty-card {
+      margin-top: 36px;
+      border: 1px solid #eef0f6;
+      background: #fafbff;
+      border-radius: 28px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .camera {
+      width: 92px;
+      height: 68px;
+      background: #eef2ff;
+      border-radius: 16px;
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    .camera::before {
+      content: "";
+      width: 34px;
+      height: 18px;
+      background: #dde4ff;
+      border-radius: 7px;
+      position: absolute;
+      left: 18px;
+      top: -10px;
+    }
+
+    .camera::after {
+      content: "";
+      width: 22px;
+      height: 22px;
+      border: 10px solid #5568e8;
+      border-radius: 50%;
+      background: white;
+      position: absolute;
+      left: 25px;
+      top: 16px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #5568e8;
+      position: absolute;
+      right: 14px;
+      top: 16px;
+    }
+
+    .empty-card h3 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .empty-card p {
+      margin: 0;
+      font-size: 18px;
+      color: #6b7280;
+    }
+
+    .footer-hints {
+      margin-top: 26px;
+      display: flex;
+      justify-content: center;
+      gap: 34px;
+      color: #9ca3af;
+      font-size: 15px;
+      flex-wrap: wrap;
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hint i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #c7d2fe;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <div class="green-ball"></div>
+
+    <div class="container">
+      <div class="hero">
+        <div>
+          <h1>时光相册</h1>
+          <p>记录生活的美好，把每一个瞬间收藏起来</p>
+        </div>
+        <button class="add-btn">＋ 添加回忆</button>
+      </div>
+
+      <div class="section-title">
+        <h2>我的回忆</h2>
+        <p>按分类浏览属于你的珍贵时光</p>
+      </div>
+
+      <div class="tabs">
+        <div class="tab active">全部</div>
+        <div class="tab">生活日常</div>
+        <div class="tab">旅行风景</div>
+        <div class="tab">人物肖像</div>
+        <div class="tab">美食记录</div>
+        <div class="tab">宠物萌照</div>
+      </div>
+
+      <div class="empty-card">
+        <div class="camera">
+          <div class="dot"></div>
+        </div>
+        <h3>还没有照片</h3>
+        <p>点击“添加回忆”，开始记录您的美好时光吧</p>
+      </div>
+
+      <div class="footer-hints">
+        <div class="hint"><i></i><span>支持照片分类</span></div>
+        <div class="hint"><i></i><span>记录生活瞬间</span></div>
+        <div class="hint"><i></i><span>保存美好回忆</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
