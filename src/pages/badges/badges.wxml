@@ -1,0 +1,30 @@
+<view class="page">
+  <view class="header">
+    <view class="header-title">我的成就</view>
+    <view class="header-subtitle">
+      已解锁 {{unlockedCount}} / {{totalCount}}
+    </view>
+  </view>
+
+  <view class="badge-grid">
+    <view
+      class="badge-item {{item.unlockedAt ? 'unlocked' : 'locked'}}"
+      wx:for="{{achievements}}"
+      wx:key="id"
+      bindtap="onBadgeTap"
+      data-achievement="{{item}}"
+    >
+      <text class="badge-icon">{{item.unlockedAt ? item.icon : '🔒'}}</text>
+      <text class="badge-name">{{item.name}}</text>
+      <view class="badge-progress" wx:if="{{!item.unlockedAt}}">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{(item.progress / item.total) * 100}}%"></view>
+        </view>
+        <text class="progress-text">{{item.progress}}/{{item.total}}</text>
+      </view>
+      <text class="badge-date" wx:if="{{item.unlockedAt}}">
+        {{item.unlockedAt}}
+      </text>
+    </view>
+  </view>
+</view>

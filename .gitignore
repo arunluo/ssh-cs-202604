@@ -1,0 +1,26 @@
+# 微信小程序
+/game/
+/node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documents
+*.docx
+*.doc
+
+# Logs
+*.log
+
+# Claude
+.claude/

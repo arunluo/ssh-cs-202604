@@ -1,0 +1,114 @@
+<view class="page">
+  <!-- 个人信息 -->
+  <view class="section">
+    <view class="section-title">个人信息</view>
+    <view class="section-content">
+      <view class="setting-item">
+        <text class="setting-label">性别</text>
+        <radio-group bindchange="onGenderChange">
+          <label class="radio-option">
+            <radio value="male" checked="{{profile.gender === 'male'}}" /> 男
+          </label>
+          <label class="radio-option">
+            <radio value="female" checked="{{profile.gender === 'female'}}" /> 女
+          </label>
+        </radio-group>
+      </view>
+
+      <view class="setting-item">
+        <text class="setting-label">体重</text>
+        <input
+          type="number"
+          value="{{profile.weight}}"
+          placeholder="请输入体重"
+          bindinput="onWeightInput"
+        />
+        <text class="setting-unit">kg</text>
+      </view>
+
+      <view class="setting-item">
+        <text class="setting-label">起床时间</text>
+        <picker mode="time" value="{{wakeTime}}" bindchange="onWakeTimeChange">
+          <text class="picker-value">{{wakeTime}}</text>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 饮水目标 -->
+  <view class="section">
+    <view class="section-title">饮水目标</view>
+    <view class="section-content">
+      <view class="setting-item">
+        <text class="setting-label">每日目标</text>
+        <input
+          type="number"
+          value="{{target}}"
+          placeholder="请输入目标"
+          bindinput="onTargetInput"
+        />
+        <text class="setting-unit">ml</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提醒设置 -->
+  <view class="section">
+    <view class="section-title">提醒设置</view>
+    <view class="section-content">
+      <view class="setting-item">
+        <text class="setting-label">提醒间隔</text>
+        <picker
+          mode="selector"
+          range="{{[30, 60, 90, 120, 180]}}"
+          bindchange="onIntervalChange"
+        >
+          <text class="picker-value">{{interval}} 分钟</text>
+        </picker>
+      </view>
+
+      <view class="setting-item">
+        <text class="setting-label">午休勿扰</text>
+        <text class="setting-value">12:30 - 13:30</text>
+      </view>
+
+      <view class="setting-item">
+        <text class="setting-label">睡眠勿扰</text>
+        <text class="setting-value">23:00 - 07:00</text>
+      </view>
+
+      <view class="setting-item" bindtap="onRequestSubscribe">
+        <text class="setting-label">订阅消息</text>
+        <text class="setting-value {{reminderConfig.subscribeEnabled ? 'active' : ''}}">
+          {{reminderConfig.subscribeEnabled ? '已开启' : '未开启'}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 数据管理 -->
+  <view class="section">
+    <view class="section-title">数据管理</view>
+    <view class="section-content">
+      <view class="setting-item danger" bindtap="onClearData">
+        <text class="setting-label">清除所有数据</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关于 -->
+  <view class="section">
+    <view class="section-title">关于</view>
+    <view class="section-content">
+      <view class="setting-item" bindtap="onPrivacyPolicy">
+        <text class="setting-label">隐私政策</text>
+        <text class="arrow">›</text>
+      </view>
+
+      <view class="setting-item" bindtap="onAbout">
+        <text class="setting-label">关于喝喝水</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </view>
+</view>
