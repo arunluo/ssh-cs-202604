@@ -1,0 +1,140 @@
+<view class="page">
+  <!-- 隐私弹窗 -->
+  <view wx:if="{{showPrivacyModal}}" class="privacy-modal">
+    <view class="privacy-content">
+      <view class="privacy-title">隐私政策</view>
+      <scroll-view class="privacy-text" scroll-y>
+        <text>喝喝水小程序非常重视您的隐私保护。请您仔细阅读以下内容，了解我们如何收集、使用和保护您的数据。</text>
+        <text>\n\n1. 数据存储：本小程序所有数据（包括饮水记录、用户信息、设置等）均存储在您的本地设备上，不会上传至任何服务器。</text>
+        <text>\n\n2. 微信信息：我们仅在您主动授权时获取您的微信昵称和头像，用于成就展示。</text>
+        <text>\n\n3. 消息提醒：如您开启订阅消息提醒，我们仅用于发送喝水提醒通知。</text>
+        <text>\n\n4. 数据保留：您的本地数据可在小程序设置中随时清除。</text>
+      </scroll-view>
+      <view class="privacy-buttons">
+        <button class="btn-cancel" bindtap="onPrivacyCancel">暂不同意</button>
+        <button class="btn-confirm" bindtap="onPrivacyConfirm">同意并继续</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 引导流程 -->
+  <view wx:if="{{showOnboarding}}" class="onboarding-modal">
+    <view class="onboarding-content">
+      <view class="onboarding-title">欢迎使用喝喝水</view>
+      <view class="onboarding-subtitle">让我更好地帮助你</view>
+
+      <view class="form-item">
+        <view class="form-label">性别</view>
+        <radio-group bindchange="onGenderChange">
+          <label class="radio-label">
+            <radio value="male" checked="{{gender === 'male'}}" /> 男
+          </label>
+          <label class="radio-label">
+            <radio value="female" checked="{{gender === 'female'}}" /> 女
+          </label>
+        </radio-group>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">体重 (kg)</view>
+        <input type="number" value="{{weight}}" placeholder="请输入体重" bindinput="onWeightInput" />
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">起床时间</view>
+        <picker mode="time" value="{{wakeTime}}" bindchange="onWakeTimeChange">
+          <view class="picker-value">{{wakeTime}}</view>
+        </picker>
+      </view>
+
+      <view class="target-recommendation">
+        <view class="target-label">推荐每日饮水目标</view>
+        <view class="target-value">{{recommendedTarget}} ml</view>
+      </view>
+
+      <button class="btn-start" bindtap="onCompleteOnboarding">开始使用</button>
+    </view>
+  </view>
+
+  <!-- 连续达标天数 -->
+  <view class="streak-badge" wx:if="{{streak > 0}}">
+    <text class="streak-icon">🔥</text>
+    <text class="streak-text">已连续达标 {{streak}} 天</text>
+  </view>
+
+  <!-- 水滴动画区域 -->
+  <view class="water-container">
+    <view class="water-drop">
+      <view class="water-outline"></view>
+      <view class="water-fill" style="height: {{animationHeight}}">
+        <view class="wave-container">
+          <view class="wave wave1"></view>
+          <view class="wave wave2"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 进度信息 -->
+  <view class="progress-info">
+    <view class="drank-text">今日已喝</view>
+    <view class="drank-amount">
+      <text class="highlight">{{drank}}</text>
+      <text class="unit">ml</text>
+    </view>
+    <view class="progress-bar-container">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{percentage}}%"></view>
+      </view>
+      <text class="percentage-text">{{percentage}}%</text>
+    </view>
+    <view class="target-text">目标 {{target}} ml</view>
+  </view>
+
+  <!-- 记一杯按钮 -->
+  <button class="record-button" bindtap="onTapRecord">
+    <text class="btn-icon">💧</text>
+    <text class="btn-text">记一杯</text>
+  </button>
+
+  <!-- 杯量选择弹窗 -->
+  <view class="cup-selector-mask" wx:if="{{showCupSelector}}" bindtap="onCloseCupSelector">
+    <view class="cup-selector-panel" catchtap="noop">
+      <view class="cup-selector-title">选择杯量</view>
+      <view class="cup-options">
+        <view class="cup-option" bindtap="onSelectCup" data-amount="150">
+          <text class="cup-icon">🥛</text>
+          <text class="cup-label">小杯</text>
+          <text class="cup-amount">150ml</text>
+        </view>
+        <view class="cup-option" bindtap="onSelectCup" data-amount="200">
+          <text class="cup-icon">🥤</text>
+          <text class="cup-label">中杯</text>
+          <text class="cup-amount">200ml</text>
+        </view>
+        <view class="cup-option" bindtap="onSelectCup" data-amount="300">
+          <text class="cup-icon">🫗</text>
+          <text class="cup-label">大杯</text>
+          <text class="cup-amount">300ml</text>
+        </view>
+        <view class="cup-option" bindtap="onSelectCup" data-amount="500">
+          <text class="cup-icon">🧴</text>
+          <text class="cup-label">瓶装水</text>
+          <text class="cup-amount">500ml</text>
+        </view>
+      </view>
+      <view class="cup-custom" bindtap="onCustomInput">
+        <text>自定义输入</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 庆祝弹窗 -->
+  <view class="celebrate-modal" wx:if="{{showCelebrate}}" bindtap="onCloseCelebrate">
+    <view class="celebrate-content">
+      <text class="celebrate-icon">🎉</text>
+      <view class="celebrate-text">今日达标！</view>
+      <view class="celebrate-subtext">太棒了，继续保持哦～</view>
+    </view>
+  </view>
+</view>

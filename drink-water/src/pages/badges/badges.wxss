@@ -1,0 +1,96 @@
+/* 徽章墙样式 */
+.page {
+  min-height: 100vh;
+  background: #F7F8FA;
+  padding: 20rpx;
+}
+
+.header {
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.header-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.header-subtitle {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx 16rpx;
+}
+
+.badge-item.unlocked {
+  background: linear-gradient(135deg, #FFF9E6, #FFF);
+  border: 2rpx solid #FFD700;
+}
+
+.badge-item.locked {
+  background: #F5F5F5;
+  opacity: 0.8;
+}
+
+.badge-icon {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+}
+
+.badge-item.locked .badge-icon {
+  filter: grayscale(100%);
+}
+
+.badge-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.badge-progress {
+  width: 100%;
+  margin-top: 12rpx;
+}
+
+.progress-bar {
+  height: 8rpx;
+  background: #E8E8E8;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4AADEA, #87CEEB);
+  border-radius: 4rpx;
+}
+
+.progress-text {
+  display: block;
+  text-align: center;
+  font-size: 20rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.badge-date {
+  font-size: 20rpx;
+  color: #4CAF50;
+  margin-top: 8rpx;
+}

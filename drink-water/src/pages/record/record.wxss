@@ -1,0 +1,190 @@
+/* 记录页样式 */
+.page {
+  min-height: 100vh;
+  background: #F7F8FA;
+  padding: 20rpx;
+}
+
+/* 视图切换 */
+.view-switcher {
+  display: flex;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  border-radius: 12rpx;
+  transition: all 0.3s;
+}
+
+.tab.active {
+  background: #4AADEA;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 今日视图 */
+.today-view {
+  padding: 20rpx;
+}
+
+.record-list {
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-content {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.record-time {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.record-amount {
+  font-size: 32rpx;
+  color: #4AADEA;
+  font-weight: 600;
+}
+
+.delete-btn {
+  padding: 12rpx 24rpx;
+  background: #FF4757;
+  color: #fff;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.empty-hint {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 12rpx;
+}
+
+/* 本周视图 */
+.week-view {
+  padding: 20rpx;
+}
+
+.chart-container {
+  width: 100%;
+  height: 400rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.selected-date-records {
+  margin-top: 20rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.date-header {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.empty-mini {
+  text-align: center;
+  padding: 30rpx;
+  color: #999;
+  font-size: 26rpx;
+}
+
+/* 7天汇总 */
+.week-summary {
+  margin-top: 20rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.summary-title {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8rpx;
+}
+
+.week-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 8rpx;
+  background: #F7F8FA;
+  border-radius: 12rpx;
+}
+
+.week-day {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.week-amount {
+  font-size: 22rpx;
+  color: #333;
+  font-weight: 600;
+  margin: 8rpx 0;
+}
+
+.week-percent {
+  font-size: 20rpx;
+  color: #FFB74D;
+}
+
+.week-percent.complete {
+  color: #4CAF50;
+}

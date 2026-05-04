@@ -1,0 +1,488 @@
+/* 首页样式 */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #4AADEA 0%, #87CEEB 50%, #F7F8FA 100%);
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+/* 连续达标天数 */
+.streak-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 30rpx;
+  padding: 12rpx 28rpx;
+  margin: 20rpx auto;
+  width: fit-content;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.streak-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.streak-text {
+  font-size: 26rpx;
+  color: #FF6B35;
+  font-weight: 600;
+}
+
+/* 水滴容器 */
+.water-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30rpx 0;
+}
+
+.water-drop {
+  width: 260rpx;
+  height: 320rpx;
+  position: relative;
+  background: transparent;
+}
+
+.water-outline {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 90%;
+  height: 100%;
+  border: 4rpx solid rgba(255, 255, 255, 0.5);
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  box-sizing: border-box;
+}
+
+.water-fill {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 90%;
+  height: 5%;
+  background: linear-gradient(180deg, #5BC8F5 0%, #4AADEA 50%, #3A9BD5 100%);
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  transition: height 0.6s ease-out;
+  overflow: hidden;
+}
+
+.wave-container {
+  position: absolute;
+  top: -10rpx;
+  left: 0;
+  width: 200%;
+  height: 24rpx;
+  overflow: hidden;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: wave 3s ease-in-out infinite;
+}
+
+.wave1 {
+  animation: wave 3s ease-in-out infinite;
+}
+
+.wave2 {
+  animation: wave 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+  opacity: 0.5;
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(50%) translateY(-3rpx);
+  }
+}
+
+/* 进度信息 */
+.progress-info {
+  text-align: center;
+  padding: 24rpx 20rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24rpx;
+  margin: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(74, 173, 234, 0.15);
+}
+
+.drank-text {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.drank-amount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8rpx;
+}
+
+.highlight {
+  color: #4AADEA;
+  font-weight: 700;
+  font-size: 56rpx;
+  line-height: 1;
+}
+
+.unit {
+  font-size: 28rpx;
+  color: #4AADEA;
+}
+
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx 20rpx 0;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 20rpx;
+  background: #E8F4FD;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4AADEA, #5BC8F5);
+  border-radius: 10rpx;
+  transition: width 0.4s ease;
+}
+
+.percentage-text {
+  font-size: 28rpx;
+  color: #4AADEA;
+  font-weight: 600;
+  min-width: 80rpx;
+}
+
+.target-text {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 12rpx;
+}
+
+/* 记一杯按钮 */
+.record-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 96rpx;
+  margin: 40rpx auto;
+  background: linear-gradient(135deg, #4AADEA, #5BC8F5);
+  border-radius: 48rpx;
+  box-shadow: 0 8rpx 24rpx rgba(74, 173, 234, 0.4);
+  border: none;
+}
+
+.record-button::after {
+  border: none;
+}
+
+.btn-icon {
+  font-size: 40rpx;
+  margin-right: 12rpx;
+}
+
+.btn-text {
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 隐私弹窗 */
+.privacy-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.privacy-content {
+  width: 600rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+}
+
+.privacy-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+
+.privacy-text {
+  height: 400rpx;
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.8;
+}
+
+.privacy-buttons {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 30rpx;
+}
+
+.btn-cancel, .btn-confirm {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  border: none;
+}
+
+.btn-cancel {
+  background: #E8E8E8;
+  color: #666;
+}
+
+.btn-confirm {
+  background: #4AADEA;
+  color: #fff;
+}
+
+/* 引导流程 */
+.onboarding-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.onboarding-content {
+  width: 650rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+}
+
+.onboarding-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+}
+
+.onboarding-subtitle {
+  font-size: 28rpx;
+  color: #999;
+  text-align: center;
+  margin-top: 8rpx;
+  margin-bottom: 30rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.form-item input {
+  height: 80rpx;
+  border: 2rpx solid #E8E8E8;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+}
+
+radio-group {
+  display: flex;
+  gap: 40rpx;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 28rpx;
+}
+
+.picker-value {
+  height: 80rpx;
+  border: 2rpx solid #E8E8E8;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+}
+
+.target-recommendation {
+  background: #E8F4FD;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  text-align: center;
+  margin: 30rpx 0;
+}
+
+.target-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.target-value {
+  font-size: 48rpx;
+  color: #4AADEA;
+  font-weight: 700;
+  margin-top: 8rpx;
+}
+
+.btn-start {
+  height: 88rpx;
+  background: linear-gradient(135deg, #4AADEA, #5BC8F5);
+  border-radius: 44rpx;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  border: none;
+  margin-top: 20rpx;
+}
+
+.btn-start::after {
+  border: none;
+}
+
+/* 杯量选择 */
+.cup-selector-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  z-index: 999;
+}
+
+.cup-selector-panel {
+  width: 100%;
+  background: #fff;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 30rpx;
+  padding-bottom: 60rpx;
+}
+
+.cup-selector-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.cup-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.cup-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx 20rpx;
+  background: #F7F8FA;
+  border-radius: 16rpx;
+}
+
+.cup-icon {
+  font-size: 48rpx;
+  margin-bottom: 12rpx;
+}
+
+.cup-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.cup-amount {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.cup-custom {
+  margin-top: 20rpx;
+  text-align: center;
+  padding: 24rpx;
+  color: #4AADEA;
+  font-size: 28rpx;
+}
+
+/* 庆祝弹窗 */
+.celebrate-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1002;
+}
+
+.celebrate-content {
+  text-align: center;
+}
+
+.celebrate-icon {
+  font-size: 120rpx;
+  display: block;
+  animation: bounce 0.5s ease infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20rpx); }
+}
+
+.celebrate-text {
+  font-size: 48rpx;
+  color: #FFD700;
+  font-weight: 700;
+  margin-top: 20rpx;
+  text-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.3);
+}
+
+.celebrate-subtext {
+  font-size: 28rpx;
+  color: #fff;
+  margin-top: 12rpx;
+}

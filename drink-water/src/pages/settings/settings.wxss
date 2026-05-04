@@ -1,0 +1,93 @@
+/* 设置页样式 */
+.page {
+  min-height: 100vh;
+  background: #F7F8FA;
+  padding: 20rpx;
+}
+
+.section {
+  background: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 24rpx;
+  color: #999;
+  padding: 20rpx 24rpx;
+  background: #FAFAFA;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.section-content {
+  padding: 0 24rpx;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #F5F5F5;
+  min-height: 80rpx;
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-item.danger .setting-label {
+  color: #FF4757;
+}
+
+.setting-label {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+
+.setting-value {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.setting-value.active {
+  color: #4CAF50;
+}
+
+.setting-unit {
+  font-size: 26rpx;
+  color: #999;
+  margin-left: 16rpx;
+}
+
+.setting-item input {
+  flex: 1;
+  text-align: right;
+  font-size: 28rpx;
+  color: #333;
+  padding: 0;
+}
+
+radio-group {
+  display: flex;
+  gap: 40rpx;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 28rpx;
+}
+
+.picker-value {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.arrow {
+  font-size: 32rpx;
+  color: #CCC;
+  margin-left: 8rpx;
+}

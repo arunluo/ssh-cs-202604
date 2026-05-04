@@ -6,7 +6,7 @@
 
 | 项目 | 描述 | 技术栈 |
 |------|------|--------|
-| [喝喝水小程序](./project1/) | 微信小程序 - 喝水记录提醒助手 | 微信原生 + JavaScript |
+| [喝喝水小程序](./drink-water/) | 微信小程序 - 喝水记录提醒助手 | 微信原生 + JavaScript |
 | [照片墙](./photo-wall/) | React 照片展示应用 | React + TypeScript + Vite |
 | [俄罗斯方块](./tetris.html) | 经典俄罗斯方块游戏 | 原生 HTML5 Canvas |
 | [待办事项](./todo-app-new.html) | 待办事项管理应用 | 原生 HTML5 + CSS |
@@ -15,7 +15,7 @@
 
 ### 喝喝水小程序
 ```bash
-cd project1
+cd drink-water
 # 在微信开发者工具中导入 src 目录
 ```
 

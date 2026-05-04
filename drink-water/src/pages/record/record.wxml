@@ -1,0 +1,99 @@
+<view class="page">
+  <!-- 视图切换 -->
+  <view class="view-switcher">
+    <view
+      class="tab {{activeTab === 'today' ? 'active' : ''}}"
+      bindtap="onTabChange"
+      data-tab="today"
+    >
+      今日
+    </view>
+    <view
+      class="tab {{activeTab === 'week' ? 'active' : ''}}"
+      bindtap="onTabChange"
+      data-tab="week"
+    >
+      本周
+    </view>
+  </view>
+
+  <!-- 今日视图 -->
+  <view class="today-view" wx:if="{{activeTab === 'today'}}">
+    <view class="record-list" wx:if="{{todayRecords.length > 0}}">
+      <view
+        class="record-item"
+        wx:for="{{todayRecords}}"
+        wx:key="id"
+      >
+        <view class="record-content">
+          <text class="record-time">{{item.time}}</text>
+          <text class="record-amount">{{item.amount}}ml</text>
+        </view>
+        <view
+          class="delete-btn"
+          bindtap="onDeleteRecord"
+          data-id="{{item.id}}"
+        >
+          删除
+        </view>
+      </view>
+    </view>
+    <view class="empty-state" wx:else>
+      <text class="empty-icon">💧</text>
+      <text class="empty-text">今日还没有记录哦</text>
+      <text class="empty-hint">快去首页记一杯吧～</text>
+    </view>
+  </view>
+
+  <!-- 本周视图 -->
+  <view class="week-view" wx:if="{{activeTab === 'week'}}">
+    <view class="chart-container">
+      <ec-canvas
+        id="weekChart"
+        canvas-id="weekChart"
+        bindinit="initChart"
+        bindtouchstart="onWeekChartTap"
+      />
+    </view>
+
+    <!-- 选中日期的记录明细 -->
+    <view class="selected-date-records" wx:if="{{selectedDate}}">
+      <view class="date-header">{{selectedDate}}</view>
+      <view class="record-list">
+        <view
+          class="record-item"
+          wx:for="{{selectedDateRecords}}"
+          wx:key="id"
+        >
+          <view class="record-content">
+            <text class="record-time">{{item.time}}</text>
+            <text class="record-amount">{{item.amount}}ml</text>
+          </view>
+        </view>
+        <view class="empty-mini" wx:if="{{selectedDateRecords.length === 0}}">
+          当日无记录
+        </view>
+      </view>
+    </view>
+
+    <!-- 7天数据概览 -->
+    <view class="week-summary">
+      <view class="summary-title">近7天饮水数据</view>
+      <view class="week-grid">
+        <view
+          class="week-item"
+          wx:for="{{weekData}}"
+          wx:key="date"
+          bindtap="onWeekChartTap"
+          data-index="{{index}}"
+        >
+          <text class="week-day">{{item.day}}</text>
+          <text class="week-amount">{{item.total}}ml</text>
+          <text class="week-percent {{item.percentage >= 100 ? 'complete' : ''}}">
+            {{item.percentage}}%
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
