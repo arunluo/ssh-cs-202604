@@ -19,7 +19,7 @@ export const storage = {
     try {
       localStorage.setItem(STORAGE_KEYS.PHOTOS, JSON.stringify(photos))
     } catch (error) {
-      console.error('Failed to save photos:', error)
+      // Storage quota exceeded or unavailable
     }
   },
 
@@ -36,7 +36,7 @@ export const storage = {
     try {
       localStorage.setItem(STORAGE_KEYS.CATEGORIES, JSON.stringify(categories))
     } catch (error) {
-      console.error('Failed to save categories:', error)
+      // Storage quota exceeded or unavailable
     }
   }
 }

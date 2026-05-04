@@ -59,12 +59,13 @@
 
   /* Container */
   .container {
-    width: 960px;
+    width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
     background: #fff;
     border: 1px solid #eef0f6;
     border-radius: 36px;
-    padding: 50px;
+    padding: 40px;
     position: relative;
     z-index: 1;
     box-shadow: 0 10px 30px rgba(31, 41, 55, 0.04);

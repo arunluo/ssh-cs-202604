@@ -1,1 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Vercel
 .vercel
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# TypeScript
+*.tsbuildinfo

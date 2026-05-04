@@ -21,7 +21,7 @@ export const usePhotos = () => {
       const reader = new FileReader()
       reader.onload = (e) => {
         const newPhoto: Photo = {
-          id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+          id: Date.now().toString() + Math.random().toString(36).substring(2, 11),
           url: e.target?.result as string,
           title: formData.title,
           description: formData.description,

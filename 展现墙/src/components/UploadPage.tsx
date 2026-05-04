@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Upload, Image as ImageIcon, X } from 'lucide-react'
-import { PhotoCategory, PhotoFormData } from '../types/photo'
+import { Photo, PhotoCategory, PhotoFormData } from '../types/photo'
 
 interface UploadPageProps {
   categories: PhotoCategory[]
   onClose: () => void
-  onUpload: (file: File, formData: PhotoFormData) => Promise<any>
+  onUpload: (file: File, formData: PhotoFormData) => Promise<Photo>
 }
 
 const UploadPage: React.FC<UploadPageProps> = ({ categories, onClose, onUpload }) => {
@@ -25,7 +25,8 @@ const UploadPage: React.FC<UploadPageProps> = ({ categories, onClose, onUpload }
   useEffect(() => {
     if (step === 'edit') {
       setTimeout(() => {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+        const form = document.getElementById('upload-form')
+        form?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }, 200)
     }
   }, [step])
@@ -52,7 +53,7 @@ const UploadPage: React.FC<UploadPageProps> = ({ categories, onClose, onUpload }
       await onUpload(selectedFile, formData)
       onClose()
     } catch (error) {
-      console.error('Upload failed:', error)
+      // Upload failed silently - user can retry
     } finally {
       setUploading(false)
     }
@@ -152,6 +153,7 @@ const UploadPage: React.FC<UploadPageProps> = ({ categories, onClose, onUpload }
               </motion.div>
             ) : (
               <motion.form
+                id="upload-form"
                 onSubmit={handleSubmit}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
