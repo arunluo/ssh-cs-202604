@@ -7,10 +7,9 @@
 | 项目 | 描述 | 技术栈 |
 |------|------|--------|
 | [喝喝水小程序](./project1/) | 微信小程序 - 喝水记录提醒助手 | 微信原生 + JavaScript |
-| [照片墙](./%E5%B1%95%E7%8E%B0%E5%A2%99/) | React 照片展示应用 | React + TypeScript + Vite |
+| [照片墙](./photo-wall/) | React 照片展示应用 | React + TypeScript + Vite |
 | [俄罗斯方块](./tetris.html) | 经典俄罗斯方块游戏 | 原生 HTML5 Canvas |
 | [待办事项](./todo-app-new.html) | 待办事项管理应用 | 原生 HTML5 + CSS |
-| [代码优化器](./code_optimizer/) | Python 代码分析优化工具 | Python |
 
 ## 快速导航
 
@@ -22,7 +21,7 @@ cd project1
 
 ### 照片墙
 ```bash
-cd 展现墙
+cd photo-wall
 npm install
 npm run dev
 ```
