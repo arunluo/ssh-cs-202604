@@ -56,6 +56,11 @@
     </view>
   </view>
 
+  <!-- 每日语录 -->
+  <view class="daily-quote" wx:if="{{dailyQuote}}">
+    <text class="quote-text">{{dailyQuote}}</text>
+  </view>
+
   <!-- 连续达标天数 -->
   <view class="streak-badge" wx:if="{{streak > 0}}">
     <text class="streak-icon">🔥</text>
@@ -91,6 +96,12 @@
     <view class="target-text">目标 {{target}} ml</view>
   </view>
 
+  <!-- 分享按钮 -->
+  <button class="share-button" bindtap="onShare">
+    <text class="share-icon">📤</text>
+    <text class="share-text">分享</text>
+  </button>
+
   <!-- 记一杯按钮 -->
   <button class="record-button" bindtap="onTapRecord">
     <text class="btn-icon">💧</text>
@@ -101,6 +112,51 @@
   <view class="cup-selector-mask" wx:if="{{showCupSelector}}" bindtap="onCloseCupSelector">
     <view class="cup-selector-panel" catchtap="noop">
       <view class="cup-selector-title">选择杯量</view>
+
+      <!-- 饮品种类选择 -->
+      <view class="drink-type-selector">
+        <view
+          class="drink-type-item {{selectedDrinkType === 'water' ? 'active' : ''}}"
+          bindtap="onSelectDrinkType"
+          data-type="water"
+        >
+          <text class="drink-type-icon">💧</text>
+          <text class="drink-type-name">白水</text>
+        </view>
+        <view
+          class="drink-type-item {{selectedDrinkType === 'coffee' ? 'active' : ''}}"
+          bindtap="onSelectDrinkType"
+          data-type="coffee"
+        >
+          <text class="drink-type-icon">☕</text>
+          <text class="drink-type-name">咖啡</text>
+        </view>
+        <view
+          class="drink-type-item {{selectedDrinkType === 'tea' ? 'active' : ''}}"
+          bindtap="onSelectDrinkType"
+          data-type="tea"
+        >
+          <text class="drink-type-icon">🍵</text>
+          <text class="drink-type-name">茶</text>
+        </view>
+        <view
+          class="drink-type-item {{selectedDrinkType === 'juice' ? 'active' : ''}}"
+          bindtap="onSelectDrinkType"
+          data-type="juice"
+        >
+          <text class="drink-type-icon">🧃</text>
+          <text class="drink-type-name">果汁</text>
+        </view>
+        <view
+          class="drink-type-item {{selectedDrinkType === 'other' ? 'active' : ''}}"
+          bindtap="onSelectDrinkType"
+          data-type="other"
+        >
+          <text class="drink-type-icon">🥤</text>
+          <text class="drink-type-name">其他</text>
+        </view>
+      </view>
+
       <view class="cup-options">
         <view class="cup-option" bindtap="onSelectCup" data-amount="150">
           <text class="cup-icon">🥛</text>

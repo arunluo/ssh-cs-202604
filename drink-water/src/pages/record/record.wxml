@@ -15,6 +15,13 @@
     >
       本周
     </view>
+    <view
+      class="tab {{activeTab === 'trend' ? 'active' : ''}}"
+      bindtap="onTabChange"
+      data-tab="trend"
+    >
+      趋势
+    </view>
   </view>
 
   <!-- 今日视图 -->
@@ -93,6 +100,77 @@
             {{item.percentage}}%
           </text>
         </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 趋势视图 -->
+  <view class="trend-view" wx:if="{{activeTab === 'trend'}}">
+    <!-- 周报卡片 -->
+    <view class="week-report-card" wx:if="{{weekReport.weekAvg > 0}}">
+      <view class="report-header">
+        <text class="report-title">📊 本周周报</text>
+        <text class="report-comparison" wx:if="{{weekReport.comparison}}">{{weekReport.comparison}}</text>
+      </view>
+      <view class="report-stats">
+        <view class="stat-item">
+          <text class="stat-value">{{weekReport.weekAvg}}</text>
+          <text class="stat-label">日均(ml)</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">{{weekReport.completedDays}}</text>
+          <text class="stat-label">达标天数</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">{{weekReport.bestDay}}</text>
+          <text class="stat-label">最佳日期</text>
+        </view>
+      </view>
+      <view class="report-suggestions">
+        <text class="suggestion-title">💡 建议</text>
+        <text class="suggestion-item" wx:for="{{weekReport.suggestions}}" wx:key="index">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 趋势图表 -->
+    <view class="trend-chart">
+      <view class="trend-header">
+        <text class="trend-title">{{showMonth ? '近30天' : '近7天'}}趋势</text>
+        <view class="trend-toggle" bindtap="onToggleMode">
+          <text>{{showMonth ? '切换周' : '切换月'}}</text>
+        </view>
+      </view>
+      <view class="trend-bars">
+        <view
+          class="trend-bar-item"
+          wx:for="{{trendData}}"
+          wx:key="date"
+        >
+          <view class="bar-container">
+            <view
+              class="bar-fill {{item.isComplete ? 'complete' : ''}}"
+              style="height: {{item.percentage}}%"
+            ></view>
+          </view>
+          <text class="bar-label">{{item.displayDate}}</text>
+          <text class="bar-value">{{item.total}}ml</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 统计摘要 -->
+    <view class="trend-summary">
+      <view class="summary-item">
+        <text class="summary-value">{{averageIntake}}</text>
+        <text class="summary-label">日均摄入(ml)</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-value">{{completionRate}}%</text>
+        <text class="summary-label">达标率</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-value">{{completedDays}}/{{totalDays}}</text>
+        <text class="summary-label">达标天数</text>
       </view>
     </view>
   </view>

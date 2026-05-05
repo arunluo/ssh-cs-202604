@@ -1,4 +1,6 @@
-const storage = require('../../utils/storage');
+const storageModule = require('../../utils/storage');
+const storage = storageModule.storage;
+const DRINK_TYPES = storageModule.DRINK_TYPES;
 
 Page({
   data: {
@@ -16,15 +18,44 @@ Page({
     gender: 'male',
     weight: '',
     wakeTime: '07:30',
-    recommendedTarget: 2000
+    recommendedTarget: 2000,
+    // 新增：饮品种类选择
+    selectedDrinkType: 'water',
+    drinkTypes: DRINK_TYPES,
+    // 新增：随机语录
+    dailyQuote: '',
+    lastQuoteDate: ''
   },
 
   onLoad() {
     this.checkFirstLaunch();
+    this.loadDailyQuote();
   },
 
   onShow() {
     this.loadTodayProgress();
+  },
+
+  // 加载每日语录
+  loadDailyQuote() {
+    const settings = storage.getAppSettings();
+    const today = formatDate(new Date());
+
+    // 如果今天还没换过语录，或者没有记录，则刷新
+    if (!settings.lastQuoteDate || settings.lastQuoteDate !== today) {
+      const quote = storage.getRandomQuote();
+      this.setData({
+        dailyQuote: quote,
+        lastQuoteDate: today
+      });
+      settings.lastQuoteDate = today;
+      storage.setAppSettings(settings);
+    } else {
+      // 用已有的语录（如果有的话）
+      this.setData({
+        dailyQuote: storage.getRandomQuote()
+      });
+    }
   },
 
   checkFirstLaunch() {
@@ -161,9 +192,19 @@ Page({
     this.setData({ showCupSelector: false });
   },
 
+  // 空操作函数，用于阻止事件冒泡
+  noop() {},
+
+  // 选择饮品种类
+  onSelectDrinkType(e) {
+    const type = e.currentTarget.dataset.type;
+    this.setData({ selectedDrinkType: type });
+  },
+
   onSelectCup(e) {
     const amount = e.currentTarget.dataset.amount;
-    this.recordDrink(amount);
+    const type = this.data.selectedDrinkType || 'water';
+    this.recordDrink(amount, type);
   },
 
   onCustomInput() {
@@ -177,7 +218,8 @@ Page({
         if (res.confirm && res.content) {
           const amount = parseInt(res.content);
           if (amount > 0 && amount <= 2000) {
-            this.recordDrink(amount);
+            const type = this.data.selectedDrinkType || 'water';
+            this.recordDrink(amount, type);
           } else {
             wx.showToast({ title: '请输入1-2000之间的数字', icon: 'none' });
           }
@@ -186,10 +228,10 @@ Page({
     });
   },
 
-  recordDrink(amount) {
+  recordDrink(amount, type) {
     this.setData({ showCupSelector: false });
 
-    storage.addDrinkRecord(amount);
+    storage.addDrinkRecord(amount, type);
     const progress = storage.calculateTodayProgress();
 
     storage.checkAndUpdateStreak();
@@ -202,7 +244,7 @@ Page({
       animationHeight: animationHeight
     });
 
-    this.animateWaterRise(amount);
+    this.animateWaterRise(amount, type);
 
     if (progress.percentage >= 100 && progress.total >= amount) {
       this.triggerCelebration();
@@ -212,9 +254,10 @@ Page({
     this.setData({ streak: streakData.currentStreak });
   },
 
-  animateWaterRise(amount) {
+  animateWaterRise(amount, type) {
+    const typeInfo = DRINK_TYPES[type] || DRINK_TYPES.water;
     wx.showToast({
-      title: `+${amount}ml`,
+      title: `+${amount}ml ${typeInfo.icon}`,
       icon: 'none',
       duration: 1000
     });
@@ -230,6 +273,14 @@ Page({
 
   onCloseCelebrate() {
     this.setData({ showCelebrate: false });
+  },
+
+  // 分享功能
+  onShare() {
+    // 跳转到分享页面
+    wx.navigateTo({
+      url: '/pages/share/share'
+    });
   },
 
   checkAchievements() {
@@ -250,20 +301,22 @@ Page({
         if (earlyBird && !earlyBird.unlockedAt) {
           earlyBird.unlockedAt = formatDate(new Date());
           earlyBird.progress = 1;
-          storage.setAchievements(achievements);
         }
       }
     }
+
+    // 更新早起达人进度
+    this.updateEarlyBirdProgress(achievements, progress);
 
     if (progress.percentage >= 100) {
       const perfectDay = achievements.find(a => a.id === 'perfect_day');
       if (perfectDay && !perfectDay.unlockedAt) {
         perfectDay.unlockedAt = formatDate(new Date());
         perfectDay.progress = 1;
-        storage.setAchievements(achievements);
       }
     }
 
+    // 更新连续达标成就
     const streakMap = {
       'streak_3': 3,
       'streak_7': 7,
@@ -280,7 +333,147 @@ Page({
         }
       }
     }
+
+    // 更新新增成就
+    this.updateNewAchievements(achievements, progress, streakData);
+
     storage.setAchievements(achievements);
+  },
+
+  // 更新早起达人成就
+  updateEarlyBirdProgress(achievements, progress) {
+    const profile = storage.getUserProfile();
+    if (!profile || !profile.wakeTime) return;
+
+    const records = storage.getDrinkRecords();
+    let consecutiveDays = 0;
+    const wakeMinutes = this.timeToMinutes(profile.wakeTime);
+
+    for (let i = 0; i < Math.min(7, records.length); i++) {
+      const dayRecord = records[i];
+      if (!dayRecord.records || dayRecord.records.length === 0) break;
+
+      const firstRecord = dayRecord.records[0];
+      const recordMinutes = this.timeToMinutes(firstRecord.time);
+
+      if (recordMinutes - wakeMinutes <= 30 && recordMinutes >= wakeMinutes) {
+        consecutiveDays++;
+      } else {
+        break;
+      }
+    }
+
+    const earlyBird7 = achievements.find(a => a.id === 'early_bird_7');
+    if (earlyBird7) {
+      earlyBird7.progress = consecutiveDays;
+      if (consecutiveDays >= 7 && !earlyBird7.unlockedAt) {
+        earlyBird7.unlockedAt = formatDate(new Date());
+      }
+    }
+  },
+
+  // 更新新增成就
+  updateNewAchievements(achievements, progress, streakData) {
+    // 咖啡爱好者
+    const coffeeCount = storage.countDrinkByType('coffee');
+    const coffeeLover = achievements.find(a => a.id === 'coffee_lover');
+    if (coffeeLover) {
+      coffeeLover.progress = Math.min(coffeeCount, coffeeLover.total);
+      if (coffeeCount >= 10 && !coffeeLover.unlockedAt) {
+        coffeeLover.unlockedAt = formatDate(new Date());
+      }
+    }
+
+    // 茶道大师
+    const teaCount = storage.countDrinkByType('tea');
+    const teaMaster = achievements.find(a => a.id === 'tea_master');
+    if (teaMaster) {
+      teaMaster.progress = Math.min(teaCount, teaMaster.total);
+      if (teaCount >= 10 && !teaMaster.unlockedAt) {
+        teaMaster.unlockedAt = formatDate(new Date());
+      }
+    }
+
+    // 百杯达人
+    const totalCups = storage.getTotalCups();
+    const hundredCups = achievements.find(a => a.id === 'hundred_cups');
+    if (hundredCups) {
+      hundredCups.progress = Math.min(totalCups, hundredCups.total);
+      if (totalCups >= 100 && !hundredCups.unlockedAt) {
+        hundredCups.unlockedAt = formatDate(new Date());
+      }
+    }
+
+    // 夜猫子 - 连续3天睡前喝水
+    this.updateNightOwlProgress(achievements);
+
+    // 周末水怪
+    this.updateWeekendWarriorProgress(achievements);
+  },
+
+  // 更新夜猫子成就
+  updateNightOwlProgress(achievements) {
+    const records = storage.getDrinkRecords();
+    let consecutiveNightDrinks = 0;
+
+    for (let i = 0; i < Math.min(3, records.length); i++) {
+      const dayRecords = records[i].records || [];
+      const hasNightDrink = dayRecords.some(r => {
+        const hour = parseInt(r.time.split(':')[0]);
+        return hour >= 21 || hour < 5;
+      });
+
+      if (hasNightDrink) {
+        consecutiveNightDrinks++;
+      } else {
+        break;
+      }
+    }
+
+    const nightOwl = achievements.find(a => a.id === 'night_owl');
+    if (nightOwl) {
+      nightOwl.progress = consecutiveNightDrinks;
+      if (consecutiveNightDrinks >= 3 && !nightOwl.unlockedAt) {
+        nightOwl.unlockedAt = formatDate(new Date());
+      }
+    }
+  },
+
+  // 更新周末水怪成就
+  updateWeekendWarriorProgress(achievements) {
+    const records = storage.getDrinkRecords();
+    let consecutiveWeekends = 0;
+
+    for (let i = 0; i < Math.min(4, records.length); i++) {
+      const record = records[i];
+      const date = new Date(record.date);
+      const dayOfWeek = date.getDay();
+      const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+      if (isWeekend && record.records && record.records.length > 0) {
+        const total = record.records.reduce((sum, r) => sum + Number(r.amount), 0);
+        if (total >= record.target) {
+          consecutiveWeekends++;
+        } else {
+          break;
+        }
+      } else if (isWeekend) {
+        break;
+      }
+    }
+
+    const weekendWarrior = achievements.find(a => a.id === 'weekend_warrior');
+    if (weekendWarrior) {
+      weekendWarrior.progress = consecutiveWeekends;
+      if (consecutiveWeekends >= 4 && !weekendWarrior.unlockedAt) {
+        weekendWarrior.unlockedAt = formatDate(new Date());
+      }
+    }
+  },
+
+  timeToMinutes(time) {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
   }
 });
 

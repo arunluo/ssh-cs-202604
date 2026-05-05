@@ -2,9 +2,10 @@
   "pages": [
     "pages/index/index",
     "pages/record/record",
-    "pages/trend/trend",
+    "pages/tasks/tasks",
     "pages/badges/badges",
-    "pages/settings/settings"
+    "pages/settings/settings",
+    "pages/share/share"
   ],
   "window": {
     "navigationBarBackgroundColor": "#4AADEA",
@@ -31,10 +32,10 @@
         "selectedIconPath": "styles/images/icon-record-active.png"
       },
       {
-        "pagePath": "pages/trend/trend",
-        "text": "趋势",
-        "iconPath": "styles/images/icon-trend.png",
-        "selectedIconPath": "styles/images/icon-trend-active.png"
+        "pagePath": "pages/tasks/tasks",
+        "text": "任务",
+        "iconPath": "styles/images/icon-tasks.png",
+        "selectedIconPath": "styles/images/icon-tasks-active.png"
       },
       {
         "pagePath": "pages/badges/badges",

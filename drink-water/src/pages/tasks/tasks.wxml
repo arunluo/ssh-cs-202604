@@ -1,0 +1,54 @@
+<view class="page">
+  <view class="header">
+    <view class="header-title">每日任务</view>
+    <view class="header-subtitle">完成挑战赢取奖励</view>
+  </view>
+
+  <!-- 奖励积分展示 -->
+  <view class="rewards-card">
+    <view class="rewards-icon">🎁</view>
+    <view class="rewards-info">
+      <text class="rewards-label">我的积分</text>
+      <text class="rewards-value">{{rewards}}</text>
+    </view>
+  </view>
+
+  <!-- 任务列表 -->
+  <view class="tasks-section">
+    <view class="section-title">今日任务</view>
+
+    <view class="task-item {{task.completed ? 'completed' : ''}}" wx:for="{{dailyTasks}}" wx:key="id">
+      <view class="task-icon">{{item.icon}}</view>
+      <view class="task-info">
+        <view class="task-name">{{item.name}}</view>
+        <view class="task-progress">
+          <text class="progress-text">进度: {{item.progress}}/{{item.target}}</text>
+          <view class="task-bar">
+            <view class="task-bar-fill" style="width: {{(item.progress/item.target)*100}}%"></view>
+          </view>
+        </view>
+      </view>
+      <view class="task-reward">
+        <text class="reward-icon">+{{item.reward}}</text>
+      </view>
+      <view class="task-status" wx:if="{{task.completed}}">
+        <text class="status-text">已完成</text>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{dailyTasks.length === 0}}">
+      <text class="empty-icon">🎯</text>
+      <text class="empty-text">暂无任务</text>
+    </view>
+  </view>
+
+  <!-- 任务说明 -->
+  <view class="tips-section">
+    <view class="tips-title">任务说明</view>
+    <view class="tips-content">
+      <text>• 早起第一杯：起床后30分钟内喝一杯水\n</text>
+      <text>• 餐前喝水：每餐饭前喝一杯水（每天3次）\n</text>
+      <text>• 睡前一cup：睡前30分钟内喝一杯水</text>
+    </view>
+  </view>
+</view>
